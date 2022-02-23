@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Task {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull(message = "Title cannot be null")

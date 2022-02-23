@@ -1,6 +1,7 @@
 package br.com.kikuchi.henrique.todolistv3.service;
 
 import br.com.kikuchi.henrique.todolistv3.dto.*;
+import br.com.kikuchi.henrique.todolistv3.exception.BadRequestException;
 import br.com.kikuchi.henrique.todolistv3.model.Comment;
 import br.com.kikuchi.henrique.todolistv3.model.State;
 import br.com.kikuchi.henrique.todolistv3.model.Task;
@@ -29,7 +30,7 @@ public class TaskService {
     }
 
     public Task getTaskById(Integer id){
-        return this.taskRepository.findById(id).orElse(null);
+        return this.taskRepository.findById(id).orElseThrow(() ->new BadRequestException("Task not be found!"));
     }
 
     public List<Task> getAllTasks() {
@@ -51,7 +52,7 @@ public class TaskService {
     }
 
     public void updateById(Integer id, TaskUpdateDTO taskUpdateDTO) {
-        Task taskToUpdate = this.taskRepository.findById(id).orElse(null);
+        Task taskToUpdate = this.taskRepository.findById(id).orElseThrow(() ->new BadRequestException("Task not be found!"));
         if (taskToUpdate != null){
             taskToUpdate.setTitle(taskUpdateDTO.title());
             taskToUpdate.setDescription(taskUpdateDTO.description());
@@ -60,16 +61,11 @@ public class TaskService {
     }
 
     public List<Comment> getCommentsByTaskId(Integer id) {
-//        Task task = this.taskRepository.findById(id).orElse(null);
-//        if (task != null){
-//            return task.getCommentList();
-//        }
-//        return null;
-        return this.commentRepository.findAllByTaskId(id).orElse(null);
+        return this.commentRepository.findAllByTaskId(id).orElseThrow(() ->new BadRequestException("Comment not be found!"));
     }
 
     public void createNewCommentByTaskId(Integer id, CommentCreateDTO comment) {
-        Task task = this.taskRepository.findById(id).orElse(null);
+        Task task = this.taskRepository.findById(id).orElseThrow(() ->new BadRequestException("Task not be found!"));
         if (task != null){
             Comment commentToAdd = Comment.builder()
                     .text(comment.text())

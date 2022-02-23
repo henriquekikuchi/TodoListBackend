@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Comment {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Getter
     private Integer id;
 

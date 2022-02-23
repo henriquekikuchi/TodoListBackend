@@ -55,7 +55,7 @@ public class TaskController {
     @DeleteMapping("/{id}")
     private ResponseEntity<String> deleteById(@PathVariable("id") Integer id){
         this.taskService.deleteById(id);
-        return new ResponseEntity("deleted with successfully", HttpStatus.OK);
+        return new ResponseEntity("deleted with successfully", HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("/{id}/state")
