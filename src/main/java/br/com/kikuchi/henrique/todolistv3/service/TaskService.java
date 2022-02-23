@@ -84,6 +84,6 @@ public class TaskService {
     }
 
     public void deleteCommentByIdAndTaskId(Integer id, Integer taskId) {
-        return this.commentRepository.deleteByIdAndTaskId(id, taskId);
+        this.commentRepository.deleteByIdAndTaskId(id, taskId);
     }
 }
