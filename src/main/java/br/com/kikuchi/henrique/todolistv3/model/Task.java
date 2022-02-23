@@ -1,11 +1,11 @@
 package br.com.kikuchi.henrique.todolistv3.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -20,18 +20,19 @@ public class Task {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    @NotNull
+    @NotNull(message = "Title cannot be null")
     private String title;
 
-    @NotNull
+    @NotNull(message = "Description cannot be null")
     private String description;
 
-    @NotNull
+    @NotNull(message = "State cannot be null")
     private State state;
 
-    @NotNull
+    @CreatedDate
     private Date createdAt = new Date();
 
+    @UpdateTimestamp
     private Date updatedAt;
 
     @OneToMany(mappedBy = "task", cascade={CascadeType.ALL})

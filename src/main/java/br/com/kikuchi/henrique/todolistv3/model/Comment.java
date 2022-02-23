@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -12,11 +13,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class Comment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Getter
     private Integer id;
 
     @Getter
+    @NotNull(message = "Text cannot be null")
     private String text;
 
     @Getter

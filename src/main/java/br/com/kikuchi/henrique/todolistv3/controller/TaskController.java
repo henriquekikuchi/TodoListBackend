@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class TaskController {
     }
 
     @PostMapping
-    private ResponseEntity<Task> createNewTask(@RequestBody TaskCreateDTO taskCreateDTO){
+    private ResponseEntity<Task> createNewTask(@RequestBody @Valid TaskCreateDTO taskCreateDTO){
         Task newTask = this.taskService.createNewTask(taskCreateDTO);
         return new ResponseEntity<Task>(newTask, HttpStatus.CREATED);
     }
@@ -44,7 +45,9 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<String> updateById(@PathVariable("id") Integer id, @RequestBody TaskUpdateDTO taskUpdateDTO){
+    private ResponseEntity<String> updateById(
+            @PathVariable("id") Integer id,
+            @RequestBody @Valid TaskUpdateDTO taskUpdateDTO){
         this.taskService.updateById(id, taskUpdateDTO);
         return new ResponseEntity("updated with successfully", HttpStatus.NO_CONTENT);
     }
@@ -56,7 +59,7 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}/state")
-    private ResponseEntity updateStateById(@PathVariable("id") Integer id, @RequestBody StateDTO state){
+    private ResponseEntity updateStateById(@PathVariable("id") Integer id, @RequestBody @Valid StateDTO state){
         this.taskService.updateStateById(id, state);
         return ResponseEntity.ok(null);
     }
@@ -73,7 +76,7 @@ public class TaskController {
     @PostMapping("{id}/comments")
     private ResponseEntity<String> createNewCommentByTaskId(
             @PathVariable("id") Integer id,
-            @RequestBody CommentCreateDTO comment){
+            @RequestBody @Valid CommentCreateDTO comment){
         this.taskService.createNewCommentByTaskId(id, comment);
         return new ResponseEntity("Comment has been added with successfully!", HttpStatus.CREATED);
     }

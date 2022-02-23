@@ -1,6 +1,5 @@
 package br.com.kikuchi.henrique.todolistv3.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
